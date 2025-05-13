@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4788172550082276370}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CheckGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7824245717890814167}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,9 +78,9 @@ GameObject:
   - component: {fileID: 8616773410613799460}
   - component: {fileID: 2511615147191736564}
   - component: {fileID: 4769092544824133884}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MainPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,8 +259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43f3d4891be12e4d93f01771136d400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpForce: 4.5
+  moveSpeed: 4.5
+  jumpForce: 5.5
+  maxHp: 6
   groundCheckPoint: {fileID: 4788172550082276370}
   groundCheckSize: {x: 0.5, y: 0.05}
   groundLayer:
@@ -292,4 +293,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 353159292051798395, guid: ceff2fc0abb73b540b4869fa804ebd62, type: 3}
   firePoint: {fileID: 7824245717890814167}
-  fireRate: 0.5
+  fireRate: 0.25

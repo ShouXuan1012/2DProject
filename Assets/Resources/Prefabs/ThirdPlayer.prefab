@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 1837973979619068575}
   - component: {fileID: 6694425919758601990}
   - component: {fileID: 6749700507806066177}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ThirdPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,8 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a1a1597f6efeb4ab75cadc4f51ecad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4.5
-  jumpForce: 5.5
+  moveSpeed: 3
+  jumpForce: 4.5
+  maxHp: 15
   groundCheckPoint: {fileID: 1369045413366661692}
   groundCheckSize: {x: 0.3, y: 0.1}
   groundLayer:
@@ -210,7 +211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1369045413366661692}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CheckGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}

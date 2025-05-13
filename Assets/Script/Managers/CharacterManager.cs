@@ -20,7 +20,7 @@ public class CharacterManager : MonoBehaviour
 
     public void ChangeCharacter(int index)
     {
-        if (index == currentIndex || index < 0 || index >= spawnedCharacters.Count)
+        if (index == currentIndex || index < 0 || index >= spawnedCharacters.Count || spawnedCharacters[index].GetComponent<BaseCharacterController>().isDead)
             return;
         Vector2 pos = spawnedCharacters[currentIndex].transform.position;
 
