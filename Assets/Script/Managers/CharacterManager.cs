@@ -22,8 +22,10 @@ public class CharacterManager : MonoBehaviour
     {
         if (index == currentIndex || index < 0 || index >= spawnedCharacters.Count)
             return;
+        Vector2 pos = spawnedCharacters[currentIndex].transform.position;
 
         spawnedCharacters[currentIndex].SetActive(false);
+        spawnedCharacters[index].transform.position = pos;
         spawnedCharacters[index].SetActive(true);
         currentIndex = index;
     }

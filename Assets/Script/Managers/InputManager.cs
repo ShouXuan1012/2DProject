@@ -5,8 +5,8 @@ public class InputManager : MonoBehaviour
     public Vector2 MoveInput { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool GravityFlipPressed { get; private set; }
-
     public bool CharacterChanged {  get; private set; }
+    public bool AttackPressed { get; private set; }
 
     private void Update()
     {
@@ -49,6 +49,9 @@ public class InputManager : MonoBehaviour
                 CharacterChanged = true;
             }
         }
+
+        //캐릭터 기본 공격
+        AttackPressed = Input.GetKeyDown(KeyCode.F);
     }
 
 
@@ -59,5 +62,6 @@ public class InputManager : MonoBehaviour
     {
         JumpPressed = false;
         GravityFlipPressed = false;
+        AttackPressed = false;
     }
 }

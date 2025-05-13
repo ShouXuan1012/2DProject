@@ -10,6 +10,7 @@ public static class Managers
     private static GameObject _root;   
     private static InputManager _input;
     private static CharacterManager _character;
+    private static PoolManager _pool;
     private static void InitRoot()
     {
         if (_root == null)
@@ -50,7 +51,9 @@ public static class Managers
                 List<GameObject> prefabList = new()
             {
                 Resources.Load<GameObject>("Prefabs/MainPlayer"),
-                Resources.Load<GameObject>("Prefabs/SecondPlayer")
+                Resources.Load<GameObject>("Prefabs/SecondPlayer"),
+                Resources.Load<GameObject>("Prefabs/ThirdPlayer")
+
 
             };
 
@@ -61,4 +64,12 @@ public static class Managers
         }
     }
 
+    public static PoolManager Pool
+    {
+        get
+        {
+            CreateManager(ref _pool, "PoolManager");
+            return _pool;
+        }
+    }
 }

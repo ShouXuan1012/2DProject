@@ -7,5 +7,6 @@ public class GameManager : MonoBehaviour
         // Managers 초기화 강제 호출
         _ = Managers.Input;
         _ = Managers.Character;
+        _ = Managers.Pool;
     }
 }
