@@ -8,8 +8,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     [SerializeField] protected float moveSpeed = 5f;
     [SerializeField] protected float jumpForce = 7f;
     [SerializeField] protected int maxHp;
-    protected int currentHp;
-    protected bool isInvincible = false;
+    protected int currentHp;   
 
     public Transform groundCheckPoint;
     public Vector2 groundCheckSize;
@@ -17,10 +16,14 @@ public abstract class BaseCharacterController : MonoBehaviour
 
     protected SpriteRenderer spriteRenderer;
     protected Rigidbody2D rb;
-    protected bool isGrounded;
-    protected bool isGravityInverted;
+    protected bool isGrounded;    
 
     public bool isDead { get; protected set; } = false;
+
+    protected float invincibleEndTime = 0f;
+
+    public bool IsInvincible => Time.time < invincibleEndTime;
+    protected Coroutine invincibilityCoroutine;
 
     protected virtual void Awake()
     {
@@ -56,15 +59,16 @@ public abstract class BaseCharacterController : MonoBehaviour
     {
         if (Managers.Input.JumpPressed && isGrounded)
         {
-            float actualJumpForce = isGravityInverted ? -jumpForce : jumpForce;
-            rb.velocity = new Vector2(rb.velocity.x, actualJumpForce);
+           bool inverted = Managers.Gravity.GetGravityState();
+        float actualJumpForce = inverted ? -jumpForce : jumpForce;
+        rb.velocity = new Vector2(rb.velocity.x, actualJumpForce);
         }
     }
 
     protected virtual void CheckGround()
     {
         Vector2 checkPos = groundCheckPoint.position;
-        Vector2 checkDir = isGravityInverted ? Vector2.up : Vector2.down;
+        Vector2 checkDir = Managers.Gravity.GetGravityState() ? Vector2.up : Vector2.down;
 
         RaycastHit2D hit = Physics2D.BoxCast(
             checkPos, groundCheckSize, 0f, checkDir, 0.1f, groundLayer
@@ -76,7 +80,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log($"[Trigger] {gameObject.name} → {collision.gameObject.name}, Tag: {collision.tag}");
-        if (isInvincible) return;
+        if (IsInvincible) return;
 
         if (collision.CompareTag("EnemyAttack"))
         {
@@ -84,17 +88,26 @@ public abstract class BaseCharacterController : MonoBehaviour
         }
     }
 
-    protected virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
+        if (IsInvincible) return; // 무적이면 데미지 무시!
+
         currentHp -= damage;
         Debug.Log($"[Damage] {gameObject.name} HP: {currentHp}");
 
-        if(currentHp == 0)
+        if (currentHp == 0)
         {
             Die();
             return;
         }
-        StartCoroutine(InvincibilityFlash());
+
+        invincibleEndTime = Time.time + 1.5f; // 무적 시간 연장
+
+        if (invincibilityCoroutine != null)
+            StopCoroutine(invincibilityCoroutine); // 중복 방지
+
+        if (!isDead)
+            invincibilityCoroutine = StartCoroutine(InvincibilityFlash(1.5f));
     }
 
     protected virtual void Die()
@@ -104,22 +117,24 @@ public abstract class BaseCharacterController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    protected IEnumerator InvincibilityFlash()
+    protected IEnumerator InvincibilityFlash(float duration)
     {
-        isInvincible = true;
-
-
         Color originalColor = spriteRenderer.color;
         Color transparentColor = new Color(originalColor.r, originalColor.g, originalColor.b, 0.5f);
 
-        float flashTime = 2.0f; // 무적 지속 시간
         spriteRenderer.color = transparentColor;
 
-        yield return new WaitForSeconds(flashTime);
+        yield return new WaitForSeconds(duration);
 
-        spriteRenderer.color = originalColor;
-        isInvincible = false;
+        //  무조건 원래 색으로 복원
+        spriteRenderer.color = Color.white;
+
+        invincibilityCoroutine = null;
     }
 
+    protected virtual void OnEnable()
+    {
+        Managers.Gravity.ApplyGravityVisual(transform);
+    }
     protected virtual void UseSkill() { } // 캐릭터마다 다르니까 추상으로
 }

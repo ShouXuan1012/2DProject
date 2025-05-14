@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitEffect : MonoBehaviour
+public class Effect : MonoBehaviour
 {
     private Animator animator;
     [SerializeField] private string animName;

@@ -4,7 +4,7 @@ public class InputManager : MonoBehaviour
 {
     public Vector2 MoveInput { get; private set; }
     public bool JumpPressed { get; private set; }
-    public bool GravityFlipPressed { get; private set; }
+    public bool SkillPressed { get; private set; }
     public bool CharacterChanged {  get; private set; }
     public bool AttackPressed { get; private set; }
 
@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
             MoveInput = new Vector2(x, y).normalized;
             // 단발성 입력
             JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
-            GravityFlipPressed = Input.GetKeyDown(KeyCode.Space);
+            SkillPressed = Input.GetKeyDown(KeyCode.Space);
         }
         else
         {
@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
         { 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Managers.Character.ChangeCharacter(0);
+                Managers.Character.ChangeCharacter(0);                
                 CharacterChanged = true;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -61,7 +61,7 @@ public class InputManager : MonoBehaviour
     public void ClearInputs()
     {
         JumpPressed = false;
-        GravityFlipPressed = false;
+        SkillPressed = false;
         AttackPressed = false;
     }
 }

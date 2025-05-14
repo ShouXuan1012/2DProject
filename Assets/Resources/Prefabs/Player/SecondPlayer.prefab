@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2644630401037699874}
   - component: {fileID: 172637378206256273}
   - component: {fileID: 1850841664861657539}
+  - component: {fileID: 7836997676625515782}
   m_Layer: 7
   m_Name: SecondPlayer
   m_TagString: Player
@@ -233,3 +234,17 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  skillCooldown: 20
+  invincibleDuration: 5
+--- !u!114 &7836997676625515782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270629455720338475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4617db188aba2a0409328994ef4cc1da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

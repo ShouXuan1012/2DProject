@@ -8,5 +8,6 @@ public class GameManager : MonoBehaviour
         _ = Managers.Input;
         _ = Managers.Character;
         _ = Managers.Pool;
+        _ = Managers.Gravity;
     }
 }

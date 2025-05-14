@@ -12,8 +12,8 @@ public class Bullet : MonoBehaviour
     private int damage = 1;
     private float direction;
 
-    public HitEffect hitEffectPrefab;
-
+    public Effect hitEffectPrefab;
+    
     private void Start()
     {
         Managers.Pool.CreatePool(hitEffectPrefab, 20, 30, TransformUtil.GetOrCreateTransform("EffectObjects"));
@@ -31,24 +31,32 @@ public class Bullet : MonoBehaviour
     private void OnEnable()
     {
         _returned = false;
-    }
-
-    private void OnBecameInvisible()
-    {
-        if (_returned) return;
-
-        _returned = true;
-        PoolManager.Instance.ReturnPool(this);
-    }
+    }    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (_returned) return;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            HitEffect effect = Managers.Pool.GetFromPool(hitEffectPrefab);
+            Effect effect = Managers.Pool.GetFromPool(hitEffectPrefab);
             effect.transform.position = transform.position;
             effect.PlayEffect();
+
+            Enemy enemy = collision.GetComponent<Enemy>(); // 맞은 적에서 컴포넌트 가져옴
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damage);
+            }
+
+            if (gameObject.activeInHierarchy)
+                StartCoroutine(DelayedReturn());
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Effect effect = Managers.Pool.GetFromPool(hitEffectPrefab);
+            effect.transform.position = transform.position;
+            effect.PlayEffect();
+
             if (gameObject.activeInHierarchy)
                 StartCoroutine(DelayedReturn());
         }
