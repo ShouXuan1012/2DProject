@@ -8,6 +8,7 @@ TagManager:
   - EnemyAttack
   - Ground
   - PlayerAttack
+  - BreakableWall
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Enemy
   - Player
   - EnemyAttack
-  - 
+  - PlayerAttack
   - 
   - 
   - 
