@@ -33,7 +33,7 @@ public class CharacterManager : MonoBehaviour
 
         // 3. 새 캐릭터 위치 설정 + 활성화
         spawnedCharacters[index].transform.position = currentPos;
-        spawnedCharacters[index].SetActive(true);
+        spawnedCharacters[index].SetActive(true);       
 
         // 4. 인덱스 갱신
         currentIndex = index;

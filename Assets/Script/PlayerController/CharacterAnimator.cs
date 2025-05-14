@@ -10,11 +10,16 @@ public class CharacterAnimator : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    public void SetAnimation(float speedX, float speedY, bool isground, bool isInverted)
+    public void SetAnimation(float speedX, float speedY, bool isGround, bool isInverted)
     {
         animator.SetFloat("IsRun", Mathf.Abs(speedX));
         animator.SetFloat("IsJump",speedY);
-        animator.SetBool("IsGrounded", isground);
+        animator.SetBool("IsGrounded", isGround);
         animator.SetBool("IsInverted", isInverted);
     }    
+
+    public void SetTrigger(string name)
+    {
+        animator.SetTrigger(name);
+    }
 }

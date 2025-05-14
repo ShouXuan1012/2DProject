@@ -135,6 +135,9 @@ public abstract class BaseCharacterController : MonoBehaviour
     protected virtual void OnEnable()
     {
         Managers.Gravity.ApplyGravityVisual(transform);
+
+        if (spriteRenderer != null)
+            spriteRenderer.color = Color.white;
     }
     protected virtual void UseSkill() { } // 캐릭터마다 다르니까 추상으로
 }
