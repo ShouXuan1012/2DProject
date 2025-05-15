@@ -12,6 +12,8 @@ public static class Managers
     private static CharacterManager _character;
     private static PoolManager _pool;
     private static GravityManager _gravity;
+    private static CameraManager _camera;
+
     private static void InitRoot()
     {
         if (_root == null)
@@ -80,6 +82,15 @@ public static class Managers
         {
             CreateManager(ref _gravity, "GravityManager");
             return _gravity;
+        }
+    }
+
+    public static CameraManager Camera
+    {
+        get
+        {
+            CreateManager(ref _camera, "CameraManager");
+            return _camera;
         }
     }
 }

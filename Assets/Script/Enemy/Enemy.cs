@@ -8,6 +8,12 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float speed = 2f;
     [SerializeField] protected Effect deathEffectPrefab;
 
+    [Header("UI")]
+    [SerializeField] protected GameObject hpUIPrefab;
+    [SerializeField] protected float UIHeight;
+    [SerializeField] protected float UIWidth;
+    protected EnemyHealthUI hpUIInstance;
+
     protected Transform playerTransform;
     protected int currentHp;
     protected bool isDead = false;
@@ -23,6 +29,11 @@ public abstract class Enemy : MonoBehaviour
         currentHp = maxHp;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();        
+        if (hpUIPrefab != null)
+        {
+            GameObject ui = Instantiate(hpUIPrefab);
+            hpUIInstance = ui.GetComponent<EnemyHealthUI>();            
+        }        
     }
     protected virtual void Start()
     {
@@ -33,6 +44,11 @@ public abstract class Enemy : MonoBehaviour
     }
     protected virtual void Update()
     {
+        if (!isDead && hpUIInstance != null)
+        {            
+            Vector3 uiPos = transform.position + new Vector3(UIWidth, UIHeight, 0);
+            hpUIInstance.Init(uiPos);           
+        }
         if (!isDead)
         {
             Move();
@@ -58,6 +74,8 @@ public abstract class Enemy : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHp -= damage;
+        if (hpUIInstance != null)
+            hpUIInstance.UpdateHealth((float)currentHp / maxHp);
         if (currentHp <= 0) Die();
         anim.SetTrigger("Hit");
     }
@@ -70,6 +88,8 @@ public abstract class Enemy : MonoBehaviour
         effect.transform.position = transform.position;
         effect.PlayEffect(); // 꼭 복사본에 실행!
 
+        if (hpUIInstance != null)
+            Destroy(hpUIInstance.gameObject);
         Destroy(gameObject); // 죽은 적 제거
     }
 

@@ -286,6 +286,9 @@ MonoBehaviour:
   damage: 1
   speed: 2
   deathEffectPrefab: {fileID: 6649768784827707735, guid: 9cb7de81e76e8524c8e42f95c004bbe5, type: 3}
+  hpUIPrefab: {fileID: 1079872344541701682, guid: 45b95a5e5ac688440800bd581821163f, type: 3}
+  UIHeight: 0.4
+  UIWidth: 0.15
   bulletPrefab: {fileID: 3789115999641728965, guid: d034d2fcf693f9a4fb4cf9c692f4f7fa, type: 3}
   firePoint: {fileID: 5062616213449282979}
   attackRange: 5
