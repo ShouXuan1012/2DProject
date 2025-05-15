@@ -54,14 +54,14 @@ public abstract class BaseCharacterController : MonoBehaviour
             transform.localScale = scale;
         }
     }
-
+    
     protected virtual void Jump()
     {
         if (Managers.Input.JumpPressed && isGrounded)
-        {
-           bool inverted = Managers.Gravity.GetGravityState();
-        float actualJumpForce = inverted ? -jumpForce : jumpForce;
-        rb.velocity = new Vector2(rb.velocity.x, actualJumpForce);
+        {            
+            bool inverted = Managers.Gravity.GetGravityState();
+            float actualJumpForce = inverted ? -jumpForce : jumpForce;
+            rb.velocity = new Vector2(rb.velocity.x, actualJumpForce);
         }
     }
 
