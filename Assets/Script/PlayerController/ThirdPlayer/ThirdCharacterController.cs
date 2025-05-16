@@ -11,11 +11,10 @@ public class ThirdCharacterController : BaseCharacterController
     private float lastBasicAttackTime = -999f;
 
     [Header("Critical Skill Attack")]
-    [SerializeField] private Collider2D CriticalAttackCollider;    
-    [SerializeField] private float CriticalAttackCooldown = 5f;
+    [SerializeField] private Collider2D CriticalAttackCollider;     
     [SerializeField] private float CriticalAttackDuration = 0.5f;
     private float lastCriticalAttackTime = -999f;
-
+    
     private Coroutine baseAttackRoutine;
     private Coroutine skillRoutine;
     private CharacterAnimator animator;
@@ -50,8 +49,7 @@ public class ThirdCharacterController : BaseCharacterController
 
     protected override void UseSkill()
     {
-        if (Time.time - lastCriticalAttackTime < CriticalAttackCooldown)
-            return;
+        if (Managers.Time.IsCooldown(gameObject)) return;
 
         if (Managers.Input.SkillPressed)
         {
@@ -59,6 +57,8 @@ public class ThirdCharacterController : BaseCharacterController
             lastCriticalAttackTime = Time.time;
             if (skillRoutine == null)
                 skillRoutine = StartCoroutine(CriticalAttackRoutine(CriticalAttackDuration));
+            Managers.Time.StartCooldown(gameObject, skillCooldownTime);
+            Managers.UI.StartCooldown(skillCooldownTime);
         }
     }
 

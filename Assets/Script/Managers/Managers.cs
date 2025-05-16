@@ -13,6 +13,8 @@ public static class Managers
     private static PoolManager _pool;
     private static GravityManager _gravity;
     private static CameraManager _camera;
+    private static UIManager _ui;
+    private static TimeManager _time;
 
     private static void InitRoot()
     {
@@ -91,6 +93,28 @@ public static class Managers
         {
             CreateManager(ref _camera, "CameraManager");
             return _camera;
+        }
+    }
+
+    public static UIManager UI
+    {
+        get
+        {
+            CreateManager(ref _ui, "UIManager");
+            return _ui;
+
+
+        }
+    }
+
+    public static TimeManager Time
+    {
+        get
+        {
+            CreateManager(ref _time, "TimeManager");
+            return _time;
+
+
         }
     }
 }

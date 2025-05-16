@@ -45,9 +45,11 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         if (!isDead && hpUIInstance != null)
-        {            
-            Vector3 uiPos = transform.position + new Vector3(UIWidth, UIHeight, 0);
-            hpUIInstance.Init(uiPos);           
+        {
+            float direction = Managers.Gravity.GetGravityState() ? -1f : 1f; // ¹ÝÀü ½Ã -1
+            Vector3 uiPos = transform.position + new Vector3(UIWidth, UIHeight * direction, 0);
+            hpUIInstance.Init(uiPos);
+            hpUIInstance.SetFillDirection(Managers.Gravity.GetGravityState());
         }
         if (!isDead)
         {

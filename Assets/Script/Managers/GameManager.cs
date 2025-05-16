@@ -10,5 +10,7 @@ public class GameManager : MonoBehaviour
         _ = Managers.Pool;
         _ = Managers.Gravity;
         _ = Managers.Camera;
+        _ = Managers.UI;
+        _ = Managers.Time;
     }
 }

@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class SecondCharacterController : BaseCharacterController
 {
-    [Header("Skill")]
-    [SerializeField] private float skillCooldown = 10f;
+    [Header("Skill")]    
     [SerializeField] private float invincibleDuration = 5f;
+
     private float lastSkillTime = -999f;
     private CharacterAnimator animator;
-
+   
     protected override void Awake()
     {
         base.Awake(); // BaseCharacterController의 Awake() 호출
@@ -24,8 +24,7 @@ public class SecondCharacterController : BaseCharacterController
 
     protected override void UseSkill()
     {
-        if (Time.time - lastSkillTime < skillCooldown)
-            return;
+        if (Managers.Time.IsCooldown(gameObject)) return;
 
         if (Managers.Input.SkillPressed)
         {
@@ -39,6 +38,8 @@ public class SecondCharacterController : BaseCharacterController
             invincibilityCoroutine = StartCoroutine(InvincibilityFlash(invincibleDuration));
 
             Debug.Log("고양이 스킬 발동! 5초간 무적");
+            Managers.Time.StartCooldown(gameObject, skillCooldownTime);
+            Managers.UI.StartCooldown(skillCooldownTime);
         }
     }
 }

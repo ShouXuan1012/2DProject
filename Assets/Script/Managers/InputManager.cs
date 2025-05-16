@@ -17,6 +17,8 @@ public class InputManager : MonoBehaviour
         {
             float x = Input.GetAxisRaw("Horizontal");
             float y = Input.GetAxisRaw("Vertical");
+            if (Managers.Gravity.GetGravityState())
+                x *= -1;
             MoveInput = new Vector2(x, y).normalized;
             // 단발성 입력
             JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);

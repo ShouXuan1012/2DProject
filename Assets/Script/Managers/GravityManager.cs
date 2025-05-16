@@ -7,7 +7,7 @@ public class GravityManager : MonoBehaviour
     private bool isGravityInverted = false;
 
     public void FlipGravity(bool inverted)
-    {
+    {        
         isGravityInverted = inverted;
 
         Physics2D.gravity = inverted ? new Vector2(0, 9.81f) : new Vector2(0, -9.81f);
@@ -20,6 +20,7 @@ public class GravityManager : MonoBehaviour
                 FlipVisual(obj.transform, inverted);
             }
         }
+        Managers.Camera.FlipCameraRotation(inverted);
     }
 
     public bool GetGravityState() => isGravityInverted;

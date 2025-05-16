@@ -170,7 +170,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1413579127
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 4723107735738678597, guid: d453bc84d3d55164cbe47319ee2ebd41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -224,11 +224,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  skillCooldownTime: 10
   BaseAttackCollider: {fileID: 6182096271238613739}
   BasicAttackCooldown: 0.5
   BasicAttackDuration: 0.3
   CriticalAttackCollider: {fileID: 589171556168409170}
-  CriticalAttackCooldown: 10
   CriticalAttackDuration: 0.5
 --- !u!50 &6694425919758601990
 Rigidbody2D:

@@ -15,4 +15,14 @@ public class EnemyHealthUI : MonoBehaviour
     {
         healthSlider.value = ratio;
     }
+
+    public void SetFillDirection(bool isInverted)
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.direction = isInverted
+                ? Slider.Direction.RightToLeft
+                : Slider.Direction.LeftToRight;
+        }
+    }
 }

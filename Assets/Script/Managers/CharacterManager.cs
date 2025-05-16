@@ -6,6 +6,7 @@ public class CharacterManager : MonoBehaviour
     private List<GameObject> spawnedCharacters = new();
     private int currentIndex = 0;
 
+ 
     public void Init(List<GameObject> characterPrefabs)
     {
         foreach (GameObject prefab in characterPrefabs)
@@ -37,6 +38,21 @@ public class CharacterManager : MonoBehaviour
 
         // 4. 인덱스 갱신
         currentIndex = index;
+
+        // 5. 체력 UI 갱신
+        int maxHp = spawnedCharacters[index].GetComponent<BaseCharacterController>().MaxHp;
+        Managers.UI.InitHearts(maxHp);
+        int currentHp = spawnedCharacters[index].GetComponent<BaseCharacterController>().CurrentHp;
+        Managers.UI.UpdateHealth(currentHp);
+
+        //6. 스킬 갱신      
+        Sprite skillSprite = Resources.Load<Sprite>($"Sprites/UI/{index}Skill");
+                
+        var controller = spawnedCharacters[index];
+        float remaining = Managers.Time.GetRemaining(controller);
+        float total = Managers.Time.GetDuration(controller);
+
+        Managers.UI.InitSkillIcon(skillSprite, remaining, total);
     }
 
 

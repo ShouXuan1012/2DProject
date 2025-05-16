@@ -24,6 +24,11 @@ public abstract class BaseCharacterController : MonoBehaviour
 
     public bool IsInvincible => Time.time < invincibleEndTime;
     protected Coroutine invincibilityCoroutine;
+    public int MaxHp => maxHp;
+    public int CurrentHp => currentHp;
+
+    [Header("SkillCooldownTime")]
+    [SerializeField] protected float skillCooldownTime;
 
     protected virtual void Awake()
     {
@@ -37,12 +42,13 @@ public abstract class BaseCharacterController : MonoBehaviour
         CheckGround();
         Move();
         Jump();
-        UseSkill();
+        UseSkill();       
     }
     protected virtual void LateUpdate()
     {        
         Managers.Input.ClearInputs();
     }
+
 
     protected virtual void Move()
     {
@@ -101,6 +107,8 @@ public abstract class BaseCharacterController : MonoBehaviour
             return;
         }
 
+        Managers.UI.UpdateHealth(currentHp);
+
         invincibleEndTime = Time.time + 1.5f; // 무적 시간 연장
 
         if (invincibilityCoroutine != null)
@@ -133,7 +141,9 @@ public abstract class BaseCharacterController : MonoBehaviour
     }
 
     protected virtual void OnEnable()
-    {
+    {      
+
+        // 원래 있던 중력, 색상 처리 유지
         Managers.Gravity.ApplyGravityVisual(transform);
 
         if (spriteRenderer != null)
