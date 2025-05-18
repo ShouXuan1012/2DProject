@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class SkillCooldownUI : MonoBehaviour
 {
     [SerializeField] private Image cooldownOverlay; // 덮는 검정 이미지
+    [SerializeField] private TextMeshProUGUI cooldownText;
 
     public void StartCooldown(float duration)
     {
@@ -14,18 +16,19 @@ public class SkillCooldownUI : MonoBehaviour
 
     private IEnumerator CooldownRoutine(float duration)
     {
-        float elapsed = 0f;
-        cooldownOverlay.fillAmount = 1f; // 처음엔 꽉 덮인 상태
+        float remaining = duration;
+        cooldownText.gameObject.SetActive(true);
 
-        while (elapsed < duration)
+        while (remaining > 0f)
         {
-            elapsed += Time.deltaTime;
-            float ratio = Mathf.Clamp01(1f - (elapsed / duration));
-            cooldownOverlay.fillAmount = ratio;
+            cooldownOverlay.fillAmount = remaining / duration;
+            cooldownText.text = Mathf.CeilToInt(remaining).ToString();
+            remaining -= Time.deltaTime;
             yield return null;
         }
 
-        cooldownOverlay.fillAmount = 0f; // 쿨타임 끝나면 사라짐
+        cooldownOverlay.fillAmount = 0f;
+        cooldownText.gameObject.SetActive(false);
     }
 
     public void ForceSetCooldown(float remaining, float total)

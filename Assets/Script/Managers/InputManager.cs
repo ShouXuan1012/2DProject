@@ -2,17 +2,46 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    private CharacterChoiceUI characterChoiceUI; // Inspector 연결 대신 직접 찾음
     public Vector2 MoveInput { get; private set; }
     public bool JumpPressed { get; private set; }
     public bool SkillPressed { get; private set; }
-    public bool CharacterChanged {  get; private set; }
+    public bool CharacterChanged { get; private set; }
     public bool AttackPressed { get; private set; }
 
+    private bool isSelecting = false;
+    private void Awake()
+    {
+        // 자동 생성된 오브젝트에서 CharacterChoiceUI 찾아서 연결
+        characterChoiceUI = FindObjectOfType<CharacterChoiceUI>();
+
+        if (characterChoiceUI == null)
+            Debug.LogError("CharacterChoiceUI를 찾을 수 없습니다. 씬에 존재해야 합니다.");
+    }
     private void Update()
     {
         bool inCharacterSelect = Input.GetKey(KeyCode.LeftAlt);
 
-        // 이동 입력
+        // Alt 키를 처음 눌렀을 때
+        if (inCharacterSelect && !isSelecting)
+        {
+            isSelecting = true;
+            characterChoiceUI.PauseTime(); // 슬로우 대신 완전 정지
+            characterChoiceUI.Show();
+        }
+
+        // Alt 키를 떼면 선택 확정
+        if (!inCharacterSelect && isSelecting)
+        {
+            isSelecting = false;
+            characterChoiceUI.ResumeTime(); // 재개
+            int selected = characterChoiceUI.GetSelectedIndex();
+            Managers.Character.ChangeCharacter(selected);
+            CharacterChanged = true;
+            characterChoiceUI.Hide();
+        }
+
+        // 이동 입력 (선택 중엔 비활성)
         if (!inCharacterSelect)
         {
             float x = Input.GetAxisRaw("Horizontal");
@@ -20,7 +49,7 @@ public class InputManager : MonoBehaviour
             if (Managers.Gravity.GetGravityState())
                 x *= -1;
             MoveInput = new Vector2(x, y).normalized;
-            // 단발성 입력
+
             JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
             SkillPressed = Input.GetKeyDown(KeyCode.Space);
         }
@@ -29,37 +58,19 @@ public class InputManager : MonoBehaviour
             MoveInput = Vector2.zero;
         }
 
-
-        // 캐릭터 선택
-        CharacterChanged = false;
-
-        if (inCharacterSelect)
-        { 
+        // 선택 중일 때 좌/우 방향키로 선택 이동
+        if (isSelecting)
+        {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                Managers.Character.ChangeCharacter(0);                
-                CharacterChanged = true;
-            }
+                characterChoiceUI.Move(-1);
             else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                Managers.Character.ChangeCharacter(1);
-                CharacterChanged = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                Managers.Character.ChangeCharacter(2);
-                CharacterChanged = true;
-            }
+                characterChoiceUI.Move(1);
         }
 
-        //캐릭터 기본 공격
-        AttackPressed = Input.GetKeyDown(KeyCode.F);
+        // 기본 공격 입력 (선택 중엔 무시)
+        AttackPressed = !inCharacterSelect && Input.GetKeyDown(KeyCode.F);
     }
 
-
-
-
-    // 매 프레임 끝에 단발 입력 플래그 초기화
     public void ClearInputs()
     {
         JumpPressed = false;

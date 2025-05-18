@@ -1,8 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    
+    private bool isTimeSlowed = false;
     private class CooldownInfo
     {
         public float duration;
@@ -44,5 +47,5 @@ public class TimeManager : MonoBehaviour
             if (kvp.Value.remaining > 0f)
                 kvp.Value.remaining -= Time.deltaTime;
         }
-    }
+    }   
 }
