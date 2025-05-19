@@ -51,7 +51,7 @@ public class Bullet : MonoBehaviour
             if (gameObject.activeInHierarchy)
                 StartCoroutine(DelayedReturn());
         }
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("BreakableWall"))
         {
             Effect effect = Managers.Pool.GetFromPool(hitEffectPrefab);
             effect.transform.position = transform.position;

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    
-    private bool isTimeSlowed = false;
     private class CooldownInfo
     {
         public float duration;

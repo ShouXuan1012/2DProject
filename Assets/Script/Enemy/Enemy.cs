@@ -83,10 +83,10 @@ public abstract class Enemy : MonoBehaviour
     }
 
     protected virtual void Die()
-    {
+    {        
         isDead = true;
 
-        Effect effect = Managers.Pool.GetFromPool(deathEffectPrefab);
+        Effect effect = Managers.Pool.GetFromPool(deathEffectPrefab);        
         effect.transform.position = transform.position;
         effect.PlayEffect(); // 꼭 복사본에 실행!
 

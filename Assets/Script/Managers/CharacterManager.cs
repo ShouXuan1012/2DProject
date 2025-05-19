@@ -6,7 +6,7 @@ public class CharacterManager : MonoBehaviour
     private List<GameObject> spawnedCharacters = new();
     private int currentIndex = 0;
 
- 
+    public int CurrentIndex => currentIndex;
     public void Init(List<GameObject> characterPrefabs)
     {
         foreach (GameObject prefab in characterPrefabs)
@@ -17,6 +17,14 @@ public class CharacterManager : MonoBehaviour
         }
 
         spawnedCharacters[currentIndex].SetActive(true);
+
+        Sprite skillSprite = Resources.Load<Sprite>($"Sprites/UI/{currentIndex}Skill");
+
+        var controller = spawnedCharacters[currentIndex];
+        float remaining = Managers.Time.GetRemaining(controller);
+        float total = Managers.Time.GetDuration(controller);
+
+        Managers.UI.InitSkillIcon(skillSprite, remaining, total);
     }
 
     public void ChangeCharacter(int index)
@@ -27,6 +35,22 @@ public class CharacterManager : MonoBehaviour
 
         // 1. 현재 위치 기억
         Vector3 currentPos = spawnedCharacters[currentIndex].transform.position;
+        if(Managers.Gravity.GetGravityState())
+        {
+            currentPos.y -= 0.25f;
+        }
+        else
+        {
+            currentPos.y += 0.2f;
+        }
+
+        BaseCharacterController currentChar = spawnedCharacters[currentIndex].GetComponent<BaseCharacterController>();
+        if (!currentChar.CanExitNarrowSpace())
+        {
+            Managers.UI.ShowChangeFail();
+            return;
+        }
+       
 
         // 2. 현재 캐릭터 비활성화
         spawnedCharacters[currentIndex].SetActive(false);
@@ -55,6 +79,5 @@ public class CharacterManager : MonoBehaviour
         Managers.UI.InitSkillIcon(skillSprite, remaining, total);
     }
 
-
-    public GameObject CurrentCharacter => spawnedCharacters.Count > 0 ? spawnedCharacters[currentIndex] : null;
+    public GameObject CurrentCharacter => spawnedCharacters.Count > 0 ? spawnedCharacters[currentIndex] : null;  
 }

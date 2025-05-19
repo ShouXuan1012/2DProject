@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - PlayerAttack
   - BreakableWall
+  - Potion
   layers:
   - Default
   - TransparentFX

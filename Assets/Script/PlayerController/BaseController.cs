@@ -92,6 +92,17 @@ public abstract class BaseCharacterController : MonoBehaviour
         {
             TakeDamage(1);
         }
+        else if (collision.CompareTag("Potion"))
+        {
+            if (currentHp < maxHp)
+            {
+                currentHp += 1;
+                Managers.UI.UpdateHealth(currentHp);
+                Debug.Log($"[회복] {gameObject.name} HP: {currentHp}");
+            }
+
+            Destroy(collision.gameObject); // 포션 제거
+        }
     }
 
     public virtual void TakeDamage(int damage)
@@ -150,4 +161,10 @@ public abstract class BaseCharacterController : MonoBehaviour
             spriteRenderer.color = Color.white;
     }
     protected virtual void UseSkill() { } // 캐릭터마다 다르니까 추상으로
+        
+    public virtual bool CanExitNarrowSpace()
+    {
+        return true; // 기본은 무조건 허용
+    }
+
 }

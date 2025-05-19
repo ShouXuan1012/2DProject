@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections;
 
 public class UIManager : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class UIManager : MonoBehaviour
     private GameObject currentSkillIcon; // 하나만 관리
     private SkillCooldownUI cooldownUI;
 
+
+    private GameObject popupPanel;
     private void Awake()
     {
         // 1. 하트 아이콘 프리팹 로드
@@ -47,6 +51,11 @@ public class UIManager : MonoBehaviour
             skillUIParent = skillContainer.transform;
         else
             Debug.LogError("Skill 오브젝트를 못 찾음");
+
+        // 팝업 패널 찾기
+        popupPanel = GameObject.Find("PopupPanel");
+        if (popupPanel != null)
+            popupPanel.SetActive(false);
     }
 
     private void Start()
@@ -115,4 +124,25 @@ public class UIManager : MonoBehaviour
         if (cooldownUI != null)
             cooldownUI.ForceSetCooldown(remaining, total);
     }
+
+    // 팝업 메시지 표시 함수
+    public void ShowChangeFail()
+    {
+        if (popupPanel == null)
+        {
+            Debug.LogWarning("PopupPanel 오브젝트를 찾지 못했습니다.");
+            return;
+        }
+
+        popupPanel.SetActive(true);
+        StopAllCoroutines(); // 중복 방지
+        StartCoroutine(HidePopupAfterDelay(2f));
+    }
+
+    private IEnumerator HidePopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        popupPanel.SetActive(false);
+    }
 }
+

@@ -27,7 +27,8 @@ public class InputManager : MonoBehaviour
         {
             isSelecting = true;
             characterChoiceUI.PauseTime(); // 슬로우 대신 완전 정지
-            characterChoiceUI.Show();
+            int currentIndex = Managers.Character.CurrentIndex; // 현재 캐릭터 인덱스 가져오기
+            characterChoiceUI.Show(currentIndex); // 현재 캐릭터부터 선택 시작
         }
 
         // Alt 키를 떼면 선택 확정

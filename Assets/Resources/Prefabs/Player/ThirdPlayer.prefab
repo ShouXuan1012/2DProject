@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 5253371306747586508}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.24, z: 0}
+  m_LocalPosition: {x: 0, y: -3.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -436,3 +436,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillDamage: 5
+  deathEffectPrefab: {fileID: 6649768784827707735, guid: 9cb7de81e76e8524c8e42f95c004bbe5, type: 3}

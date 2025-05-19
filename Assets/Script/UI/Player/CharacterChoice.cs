@@ -5,12 +5,12 @@ public class CharacterChoiceUI : MonoBehaviour
     [SerializeField] private GameObject[] choices; // Choice1,2,3
     private int currentIndex = 0;
 
-    public void Show()
+    public void Show(int startIndex)
     {
         foreach (var choice in choices)
             choice.SetActive(true);
 
-        currentIndex = 0;
+        currentIndex = Mathf.Clamp(startIndex, 0, choices.Length - 1);
         UpdateIndicator();
     }
 
@@ -35,8 +35,9 @@ public class CharacterChoiceUI : MonoBehaviour
     }
     public void PauseTime()
     {
-        Time.timeScale = 0f;
-        Time.fixedDeltaTime = 0.02f; // 물리 시간도 정지
+        float slowScale = 0.2f;
+        Time.timeScale = slowScale;
+        Time.fixedDeltaTime = 0.02f * slowScale;
     }
 
     public void ResumeTime()
