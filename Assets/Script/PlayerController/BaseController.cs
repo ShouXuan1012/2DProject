@@ -99,9 +99,9 @@ public abstract class BaseCharacterController : MonoBehaviour
                 currentHp += 1;
                 Managers.UI.UpdateHealth(currentHp);
                 Debug.Log($"[회복] {gameObject.name} HP: {currentHp}");
+                Destroy(collision.gameObject); // 포션 제거
             }
 
-            Destroy(collision.gameObject); // 포션 제거
         }
     }
 

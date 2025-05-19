@@ -6,12 +6,14 @@ public class CharacterManager : MonoBehaviour
     private List<GameObject> spawnedCharacters = new();
     private int currentIndex = 0;
 
-    public int CurrentIndex => currentIndex;
+    public int CurrentIndex => currentIndex;    
+
     public void Init(List<GameObject> characterPrefabs)
     {
         foreach (GameObject prefab in characterPrefabs)
         {
             GameObject instance = Instantiate(prefab);
+            DontDestroyOnLoad(instance);
             instance.SetActive(false);
             spawnedCharacters.Add(instance);
         }

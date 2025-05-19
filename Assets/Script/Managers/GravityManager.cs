@@ -4,8 +4,13 @@ using UnityEngine;
 public class GravityManager : MonoBehaviour
 {
     public string[] gravityAffectedTags = { "Player", "Enemy" };
+    private CameraManager cameraManager;
     private bool isGravityInverted = false;
 
+    private void Awake()
+    {
+        cameraManager = FindObjectOfType<CameraManager>();
+    }
     public void FlipGravity(bool inverted)
     {        
         isGravityInverted = inverted;
@@ -20,7 +25,7 @@ public class GravityManager : MonoBehaviour
                 FlipVisual(obj.transform, inverted);
             }
         }
-        Managers.Camera.FlipCameraRotation(inverted);
+       cameraManager.FlipCameraRotation(inverted);
     }
 
     public bool GetGravityState() => isGravityInverted;

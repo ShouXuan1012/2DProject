@@ -11,8 +11,7 @@ public static class Managers
     private static InputManager _input;
     private static CharacterManager _character;
     private static PoolManager _pool;
-    private static GravityManager _gravity;
-    private static CameraManager _camera;
+    private static GravityManager _gravity;      
     private static UIManager _ui;
     private static TimeManager _time;
 
@@ -85,16 +84,7 @@ public static class Managers
             CreateManager(ref _gravity, "GravityManager");
             return _gravity;
         }
-    }
-
-    public static CameraManager Camera
-    {
-        get
-        {
-            CreateManager(ref _camera, "CameraManager");
-            return _camera;
-        }
-    }
+    }   
 
     public static UIManager UI
     {
