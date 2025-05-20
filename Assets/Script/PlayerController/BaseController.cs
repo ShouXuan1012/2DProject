@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 
 public abstract class BaseCharacterController : MonoBehaviour
@@ -19,6 +20,11 @@ public abstract class BaseCharacterController : MonoBehaviour
     protected bool isGrounded;    
 
     public bool isDead { get; protected set; } = false;
+    public void SetDeadState(bool dead)
+    {
+        isDead = dead;
+        gameObject.SetActive(!dead);
+    }
 
     protected float invincibleEndTime = 0f;
 
@@ -38,7 +44,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     }
     
     protected virtual void Update()
-    {
+    {       
         CheckGround();
         Move();
         Jump();

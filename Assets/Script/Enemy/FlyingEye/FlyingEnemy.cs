@@ -18,7 +18,7 @@ public class FlyingEnemy : Enemy
     {   
         base.Start();        
         startPos = transform.position;
-        Managers.Pool.CreatePool(bulletPrefab, 20, 40);
+        Managers.Pool.CreatePool(bulletPrefab, 20, 40, TransformUtil.GetOrCreateTransform("EffectObjects"));
     }
 
     protected override void Update()

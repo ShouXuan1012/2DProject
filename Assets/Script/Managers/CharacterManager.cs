@@ -1,12 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterManager : MonoBehaviour
 {
     private List<GameObject> spawnedCharacters = new();
     private int currentIndex = 0;
 
-    public int CurrentIndex => currentIndex;    
+    public int CurrentIndex => currentIndex;
+    public List<GameObject> CurrentCharacterList => spawnedCharacters;
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (CurrentCharacter != null)
+        {
+            CurrentCharacter.transform.position = Vector3.zero;
+        }
+    }
 
     public void Init(List<GameObject> characterPrefabs)
     {
@@ -16,8 +35,7 @@ public class CharacterManager : MonoBehaviour
             DontDestroyOnLoad(instance);
             instance.SetActive(false);
             spawnedCharacters.Add(instance);
-        }
-
+        }        
         spawnedCharacters[currentIndex].SetActive(true);
 
         Sprite skillSprite = Resources.Load<Sprite>($"Sprites/UI/{currentIndex}Skill");
@@ -26,7 +44,7 @@ public class CharacterManager : MonoBehaviour
         float remaining = Managers.Time.GetRemaining(controller);
         float total = Managers.Time.GetDuration(controller);
 
-        Managers.UI.InitSkillIcon(skillSprite, remaining, total);
+        Managers.UI.InitSkillIcon(skillSprite, remaining, total);               
     }
 
     public void ChangeCharacter(int index)

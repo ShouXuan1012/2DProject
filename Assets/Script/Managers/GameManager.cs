@@ -11,5 +11,6 @@ public class GameManager : MonoBehaviour
         _ = Managers.Gravity;         
         _ = Managers.UI;
         _ = Managers.Time;
+        _ = Managers.GameSave;
     }
 }

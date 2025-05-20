@@ -18,7 +18,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void Start()
     {
-        Managers.Pool.CreatePool(hitEffectPrefab, 20, 30, TransformUtil.GetOrCreateTransform("EffectObjects"));
+        Managers.Pool.CreatePool(hitEffectPrefab, 20, 30, TransformUtil.GetOrCreateTransform("EffectObjects"));        
     }
     void Update()
     {       

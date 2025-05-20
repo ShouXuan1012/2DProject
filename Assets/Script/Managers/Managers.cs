@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.EditorTools;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public static class Managers
@@ -14,9 +15,10 @@ public static class Managers
     private static GravityManager _gravity;      
     private static UIManager _ui;
     private static TimeManager _time;
+    private static GameSaveManager _save;
 
     private static void InitRoot()
-    {
+    {        
         if (_root == null)
         {
             _root = new GameObject("@Managers");
@@ -80,7 +82,7 @@ public static class Managers
     public static GravityManager Gravity
     {
         get
-        {
+        {            
             CreateManager(ref _gravity, "GravityManager");
             return _gravity;
         }
@@ -105,6 +107,31 @@ public static class Managers
             return _time;
 
 
+        }
+    }
+
+    public static GameSaveManager GameSave
+    {
+        get
+        {
+            CreateManager(ref _save, "GameSaveManager");
+            return _save;
+        }
+    }
+
+    public static void ResetAllDontDestroyOnLoad()
+    {
+        Debug.Log(" ResetAllDontDestroyOnLoad() ½ÇÇàµÊ");
+
+        GameObject[] allObjects = Object.FindObjectsOfType<GameObject>(true);
+
+        foreach (GameObject go in allObjects)
+        {
+            if (go.scene.buildIndex == -1)
+            {
+                Debug.Log($" Destroying: {go.name}");
+                Object.Destroy(go);
+            }
         }
     }
 }

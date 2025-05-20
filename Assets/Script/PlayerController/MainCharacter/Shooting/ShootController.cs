@@ -15,7 +15,7 @@ public class ShootController : MonoBehaviour
     void Start()
     {   
         animator = GetComponent<Animator>();
-        Managers.Pool.CreatePool(bulletPrefab, 20, 40);
+        Managers.Pool.CreatePool(bulletPrefab, 20, 40, TransformUtil.GetOrCreateTransform("EffectObjects"));
     }
 
     void Update()

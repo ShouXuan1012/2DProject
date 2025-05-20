@@ -8,7 +8,7 @@ public class ObjectPool<T> where T : MonoBehaviour
     private T prefab;
     private Queue<T> poolQueue = new Queue<T>();
     public Transform Root {  get; private set; }
-
+    
     private int maxCount;
 
     public ObjectPool(T prefab, int initCount, int maxCount, Transform parent = null)
@@ -20,6 +20,11 @@ public class ObjectPool<T> where T : MonoBehaviour
         if(parent != null )
         {
             Root.parent = parent;
+            UnityEngine.Object.DontDestroyOnLoad(parent.gameObject);
+        }
+        else
+        {
+            UnityEngine.Object.DontDestroyOnLoad(parent.gameObject);   // 자기 자신 유지 (단독일 경우)
         }
 
         for (int i = 0; i < initCount; i++)
@@ -34,6 +39,7 @@ public class ObjectPool<T> where T : MonoBehaviour
         T instance = Object.Instantiate(prefab);
         instance.gameObject.SetActive(false);
         return instance;
+        
     }
 
     public void Enqueue(T instance)
