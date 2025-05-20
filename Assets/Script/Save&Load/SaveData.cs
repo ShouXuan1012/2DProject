@@ -7,4 +7,5 @@ public class SaveData
     public Vector3 playerPosition;
     public bool[] characterIsDead;
     public bool isGravityInverted;
+    public int currentCharacterIndex;
 }

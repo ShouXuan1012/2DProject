@@ -3,37 +3,40 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    private static string SavePath => Application.persistentDataPath + "/save.json";
+    private static string GetSlotPath(int slot) => Application.persistentDataPath + $"/save_slot{slot}.json";
 
-    public static void Save(SaveData data)
+    public static void Save(SaveData data, int slot)
     {
+        string path = GetSlotPath(slot);
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(SavePath, json);
-        Debug.Log("저장 완료: " + SavePath);
+        File.WriteAllText(path, json);
+        Debug.Log($"슬롯 {slot} 저장 완료: {path}");
     }
 
-    public static SaveData Load()
+    public static SaveData Load(int slot)
     {
-        if (File.Exists(SavePath))
+        string path = GetSlotPath(slot);
+        if (File.Exists(path))
         {
-            string json = File.ReadAllText(SavePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
-            Debug.Log("불러오기 완료");
-            return data;
+            string json = File.ReadAllText(path);
+            return JsonUtility.FromJson<SaveData>(json);
         }
-        else
-        {
-            Debug.LogWarning("저장 파일이 없습니다.");
-            return null;
-        }
+        Debug.LogWarning($"슬롯 {slot}에 저장된 파일이 없습니다.");
+        return null;
     }
 
-    public static void Delete()
+    public static bool HasSave(int slot)
     {
-        if (File.Exists(SavePath))
+        return File.Exists(GetSlotPath(slot));
+    }
+
+    public static void Delete(int slot)
+    {
+        string path = GetSlotPath(slot);
+        if (File.Exists(path))
         {
-            File.Delete(SavePath);
-            Debug.Log("저장 파일 삭제됨");
+            File.Delete(path);
+            Debug.Log($"슬롯 {slot} 저장 파일 삭제됨");
         }
     }
 }

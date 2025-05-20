@@ -10,6 +10,7 @@ public class PauseMenuManager : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("PauseMenuManager Start() Ω««‡µ ");
         menuUIGroup.SetActive(false); // Ω√¿€ Ω√ ≤®≥ı±‚     
     }
 
@@ -34,6 +35,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void PauseGame()
     {
+        Debug.Log("PauseGame() »£√‚µ ");
         isPaused = true;
         foreach (Rigidbody2D rb in FindObjectsOfType<Rigidbody2D>())
             rb.simulated = false;
@@ -48,15 +50,7 @@ public class PauseMenuManager : MonoBehaviour
             rb.simulated = true;
         menuUIGroup.SetActive(false);
         Time.timeScale = 1f;
-    }
-
-    public void SaveGame() => Managers.GameSave.SaveGame();
-
-    public void LoadGame()
-    {
-        ResumeGame(); // Ω√∞£ ¥ŸΩ√ »Â∏£∞‘
-        Managers.GameSave.LoadGame();
-    }
+    }    
 
     public void QuitToMain()
     {
