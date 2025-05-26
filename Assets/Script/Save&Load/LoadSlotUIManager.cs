@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadSlotUIManager : MonoBehaviour
@@ -49,5 +50,15 @@ public class LoadSlotUIManager : MonoBehaviour
             else
                 text.text = $"½½·Ô {i + 1} (ºóÄ­)";
         }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("TutorialScene");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

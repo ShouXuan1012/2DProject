@@ -10,6 +10,7 @@ public class GameSaveManager : MonoBehaviour
         data.currentScene = SceneManager.GetActiveScene().name;
         data.playerPosition = Managers.Character.CurrentCharacter.transform.position;
         data.isGravityInverted = Managers.Gravity.GetGravityState();
+        data.currentCharacterIndex = Managers.Character.CurrentIndex;
 
         var charList = Managers.Character.CurrentCharacterList;
         data.characterIsDead = new bool[charList.Count];
@@ -37,17 +38,21 @@ public class GameSaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f); // 씬 로드 기다리기
 
         // 위치 복원
-        Managers.Character.CurrentCharacter.transform.position = data.playerPosition;
+        Managers.Character.CurrentCharacterList[data.currentCharacterIndex].transform.position = data.playerPosition;
 
         // 중력 복원
         Managers.Gravity.FlipGravity(data.isGravityInverted);
 
         // 캐릭터 상태 복원
         var charList = Managers.Character.CurrentCharacterList;
+
         for (int i = 0; i < charList.Count; i++)
         {
             var ctrl = charList[i].GetComponent<BaseCharacterController>();
             ctrl.SetDeadState(data.characterIsDead[i]);
+
+            // 현재 캐릭터만 활성화
+            charList[i].SetActive(i == data.currentCharacterIndex && !ctrl.isDead);
         }
     }
 }

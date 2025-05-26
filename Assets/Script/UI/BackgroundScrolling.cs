@@ -13,21 +13,29 @@ public class BackgroundScrolling : MonoBehaviour
 
     void Start()
     {
-        viewHeight = Camera.main.orthographicSize * 2 * Camera.main.aspect; //  가로 길이
+        float spriteWidth = sprites[0].GetComponent<SpriteRenderer>().bounds.size.x;
+        viewHeight = spriteWidth;
     }
 
     void Update()
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        if (sprites[endIndex].position.x < -viewHeight)
+        SpriteRenderer sr = sprites[endIndex].GetComponent<SpriteRenderer>();
+        float spriteRightEdge = sr.bounds.max.x;
+        float cameraLeftEdge = Camera.main.ViewportToWorldPoint(Vector3.zero).x;
+
+        if (spriteRightEdge < cameraLeftEdge)
         {
-            sprites[endIndex].localPosition = sprites[startIndex].localPosition + Vector3.right * viewHeight;
+            float spriteWidth = sr.bounds.size.x;
+            Vector3 newPos = sprites[startIndex].position + Vector3.right * spriteWidth;
+            sprites[endIndex].position = new Vector3(newPos.x, sprites[endIndex].position.y, sprites[endIndex].position.z);
 
             int temp = startIndex;
             startIndex = endIndex;
             endIndex = temp;
         }
     }
+
 
 }
