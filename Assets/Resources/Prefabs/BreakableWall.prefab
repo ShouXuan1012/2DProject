@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7750217773229067655}
   - component: {fileID: 8195264717440795016}
   - component: {fileID: 1505508200343295137}
+  - component: {fileID: 2899383770314020733}
   m_Layer: 0
   m_Name: BreakableWall
   m_TagString: BreakableWall
@@ -152,3 +153,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2899383770314020733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514868624323845800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76ed42ebeee155469c973dde39f79fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 8b8a5a3f-3cb7-4dcc-b739-dcc9be2f2a85

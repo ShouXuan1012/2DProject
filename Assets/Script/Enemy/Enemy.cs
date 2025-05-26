@@ -32,6 +32,7 @@ public abstract class Enemy : MonoBehaviour
         if (hpUIPrefab != null)
         {
             GameObject ui = Instantiate(hpUIPrefab);
+            ui.transform.SetParent(this.transform, true);
             hpUIInstance = ui.GetComponent<EnemyHealthUI>();            
         }        
     }
@@ -70,7 +71,7 @@ public abstract class Enemy : MonoBehaviour
             Vector3 scale = transform.localScale;
             scale.x = dir < 0 ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
             transform.localScale = scale;
-        }
+        }      
     }
 
     public virtual void TakeDamage(int damage)
@@ -90,8 +91,7 @@ public abstract class Enemy : MonoBehaviour
         effect.transform.position = transform.position;
         effect.PlayEffect(); // 꼭 복사본에 실행!
 
-        if (hpUIInstance != null)
-            Destroy(hpUIInstance.gameObject);
+        if (hpUIInstance != null) Destroy(hpUIInstance.gameObject);
         Destroy(gameObject); // 죽은 적 제거
     }
 

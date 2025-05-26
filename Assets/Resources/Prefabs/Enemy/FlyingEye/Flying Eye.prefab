@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 7586789635994589369}
   - component: {fileID: 679887026454924009}
   - component: {fileID: 6905349825330423559}
+  - component: {fileID: 468742040499534416}
   m_Layer: 6
   m_Name: Flying Eye
   m_TagString: Enemy
@@ -316,3 +317,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &468742040499534416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8048018221807192553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e76ed42ebeee155469c973dde39f79fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 89cc8ab2-0b43-4362-89cb-7d8cbe95d74b

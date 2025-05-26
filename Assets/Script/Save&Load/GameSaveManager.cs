@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameSaveManager : MonoBehaviour
 {
     public void SaveGame(int slot)
-    {
+    {        
         SaveData data = new SaveData();
         data.currentScene = SceneManager.GetActiveScene().name;
         data.playerPosition = Managers.Character.CurrentCharacter.transform.position;
@@ -19,6 +20,21 @@ public class GameSaveManager : MonoBehaviour
             var ctrl = charList[i].GetComponent<BaseCharacterController>();
             data.characterIsDead[i] = ctrl.isDead;
         }
+
+        //오브젝트 상태 저장(몬스터, 아이템, 파괴가능 오브젝트)
+        string[] tags = { "Enemy", "Potion", "BreakableWall" };
+        data.aliveObjectIDs = new List<string>();
+
+        foreach (string tag in tags)
+        {
+            foreach(var obj in GameObject.FindGameObjectsWithTag(tag))
+            {
+                var id = obj.GetComponent<UniqueID>();
+                if (id != null && !data.aliveObjectIDs.Contains(id.id))
+                    Destroy(obj);
+            }
+        }
+
 
         SaveSystem.Save(data, slot);
     }
@@ -53,6 +69,20 @@ public class GameSaveManager : MonoBehaviour
 
             // 현재 캐릭터만 활성화
             charList[i].SetActive(i == data.currentCharacterIndex && !ctrl.isDead);
+        }
+
+        //오브젝트 상태 로딩(몬스터, 아이템, 파괴가능 오브젝트)
+        string[] tags = { "Enemy", "Potion", "BreakableWall" };
+        data.aliveObjectIDs = new List<string>();
+
+        foreach (string tag in tags)
+        {
+            foreach (var obj in GameObject.FindGameObjectsWithTag(tag))
+            {
+                var id = obj.GetComponent<UniqueID>();
+                if (id != null && !data.aliveObjectIDs.Contains(id.id))
+                    Destroy(obj);
+            }
         }
     }
 }

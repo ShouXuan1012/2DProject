@@ -925,6 +925,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2899383770314020733, guid: 2e718c744aa2f9d4ca9e4c223779f56d, type: 3}
+      propertyPath: id
+      value: Wall_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2404,6 +2408,10 @@ PrefabInstance:
     - target: {fileID: 8456897432447870454, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779856397744113235, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
+      propertyPath: id
+      value: Goblin_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7473,6 +7481,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1869748216}
     m_Modifications:
+    - target: {fileID: 468742040499534416, guid: c3f82aeccf9c75a429cc24e131ab4035, type: 3}
+      propertyPath: id
+      value: FlyingEye_1
+      objectReference: {fileID: 0}
     - target: {fileID: 8048018221807192553, guid: c3f82aeccf9c75a429cc24e131ab4035, type: 3}
       propertyPath: m_Name
       value: Flying Eye
@@ -7707,6 +7719,10 @@ PrefabInstance:
     - target: {fileID: 8456897432447870454, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779856397744113235, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
+      propertyPath: id
+      value: Goblin_3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8598,6 +8614,10 @@ PrefabInstance:
     - target: {fileID: 8456897432447870454, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779856397744113235, guid: 8f3fa0bdd5a9e81459515020d85adeb2, type: 3}
+      propertyPath: id
+      value: Goblin_2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10615,6 +10635,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2899383770314020733, guid: 2e718c744aa2f9d4ca9e4c223779f56d, type: 3}
+      propertyPath: id
+      value: Wall_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10688,6 +10712,10 @@ PrefabInstance:
     - target: {fileID: 1413431928046060073, guid: aafe292a063bc724086d94d629fc6d58, type: 3}
       propertyPath: m_Name
       value: Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597202687447367439, guid: aafe292a063bc724086d94d629fc6d58, type: 3}
+      propertyPath: id
+      value: Potion_1
       objectReference: {fileID: 0}
     - target: {fileID: 2804607064015094238, guid: aafe292a063bc724086d94d629fc6d58, type: 3}
       propertyPath: m_LocalPosition.x
